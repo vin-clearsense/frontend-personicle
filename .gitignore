@@ -1,0 +1,35 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/frontend_personicle/node_modules
+/frontend_personicle/.pnp
+/frontend_personicle.pnp.js
+
+# testing
+/frontend_personicle/coverage
+
+# next.js
+/frontend_personicle/.next/
+/frontend_personicle/out/
+
+# production
+/frontend_personicle/build
+
+# misc
+.DS_Store
+/frontend_personicle/.DS_Store
+*.pem
+
+# debug
+/frontend_personicle/npm-debug.log*
+/frontend_personicle/yarn-debug.log*
+/frontend_personicle/yarn-error.log*
+
+# local env files
+/frontend_personicle/.env.local
+/frontend_personicle/.env.development.local
+/frontend_personicle/.env.test.local
+/frontend_personicle/.env.production.local
+/frontend_personicle/.env
+# vercel
+/frontend_personicle/.vercel
