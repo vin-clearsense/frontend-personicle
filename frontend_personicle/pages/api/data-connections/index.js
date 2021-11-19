@@ -4,8 +4,11 @@ export default async (req,res) => {
     const session = await getSession({req});
 
     if(session){
+        const userEmail = session.user.email;
+
+
         res.send({
-            content: "Welcome to the personicle page"
+            content: "Welcome to the personicle page, " + userEmail
         });
     } else{
         res.send({

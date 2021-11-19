@@ -8,6 +8,9 @@ export default function DataConnection(){
     useEffect(() => {
         const fetchData = async() => {
             const res = await fetch("/api/data-connections");
+            // the api call returns the list of api connections and the active connections for a user
+            // for every connection there should be 2 buttons: connect, and disconnect
+            
             const json = await res.json();
 
             if(json.content){

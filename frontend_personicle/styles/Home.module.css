@@ -119,3 +119,16 @@
     flex-direction: column;
   }
 }
+
+.Row {
+  display: table;
+  width: 80%; /*Optional*/
+  table-layout: fixed; /*Optional*/
+  border-spacing: 10px; /*Optional*/
+}
+.Column {
+  display: table-cell;
+  align-content: center;
+  background-color: white; /*Optional*/
+  border: #0070f3;
+}
