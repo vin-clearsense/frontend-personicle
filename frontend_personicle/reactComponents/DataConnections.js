@@ -1,8 +1,6 @@
 import { getSession } from "next-auth/client";
 import Link from "next/link";
 
-const delay = async (ms) => new Promise(res => setTimeout(res, ms));
-
 export default function DataConnectionsDiv(props){
     let connections = props.sources;
     let rows = [];
@@ -13,7 +11,7 @@ export default function DataConnectionsDiv(props){
         let returnLink = connections[i]['return']
         // Use onclick request instead of link in the button
         // let row = [<td>{connections[i]['source']}</td>, <td><button ><Link href= {redirectLink+"?redirect_uri="+returnLink}>Connect</Link></button></td>];
-        let row = [<td>{connections[i]['source']}</td>, <td><button onClick={(e) => authorizationWindow(e)}>Connect</button></td>];
+        let row = [<td>{connections[i]['source']}</td>, <td><button onClick={(e) => authorizationWindow(e, redirectLink)}>Connect</button></td>];
         rows.push(<tr>{row}</tr>);
     }
 
@@ -32,8 +30,12 @@ export default function DataConnectionsDiv(props){
     );
 }
 
-function authorizationWindow(e){
-  let new_window = window.open("/popupPage");
-  setTimeout(() => new_window.close(), 5000);
-  // return("Testing pop up");
+function authorizationWindow(e, redirectUrl){
+  let new_window = window.open(redirectUrl);
+  // new_window.close();
+  // const res = new_window.redirect(redirectUrl);
+  // console.log(res);
+  // if(res.data.success){
+  //   new_window.close()
+  // }
 }
