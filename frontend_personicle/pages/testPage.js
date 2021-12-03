@@ -9,7 +9,7 @@ const userConnections = [
     {
         'source': 'FitBit',
         'icon': '',
-        'redirect': 'http://localhost:5000/fitbit-connection',
+        'redirect': 'http://localhost:5000/fitbit/connection',
         'return': 'http://localhost:3000/testPage'
         // process.env.AUTH_SERVER + ':' + process.env.AUTH_PORT + process.env.FITBIT_AUTH_ENDPOINT
     },
@@ -34,8 +34,8 @@ export default function TestPage(){
             <main className={styles.main}>
                 <div className={styles.Row}>
                     <div className={styles.Column}><DataConnectionsDiv sources={userConnections}/></div>
-                    <div className={styles.Column}>Center Tab</div>
-                    <div className={styles.Column}>Right Tab</div>
+                    <div className={styles.Column}>Events View Tab</div>
+                    <div className={styles.Column}>Summary View Tab</div>
                 </div>
             </main>
 
