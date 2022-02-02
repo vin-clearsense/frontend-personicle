@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useSession } from 'next-auth/client';
 import DataConnectionsDiv from "../reactComponents/DataConnections"
 
+const ingestionServer = "https://20.121.8.101:8000"
+// const ingestionServer = "https://127.0.0.1:5000"
+
 const userConnections = [
     {
         'source': 'FitBit',
         'icon': '',
-        'redirect': 'http://localhost:5000/fitbit/connection',
+        'redirect': ingestionServer + '/fitbit/connection',
         'return': 'http://localhost:3000/testPage'
         // process.env.AUTH_SERVER + ':' + process.env.AUTH_PORT + process.env.FITBIT_AUTH_ENDPOINT
     },
@@ -17,6 +20,12 @@ const userConnections = [
         'source': 'Oura',
         'icon': '',
         'redirect': '/',
+        'return': 'http://localhost:3000/testPage'
+    },
+    {
+        'source': 'GoogleFit',
+        'icon': '',
+        'redirect': ingestionServer + '/google-fit/connection',
         'return': 'http://localhost:3000/testPage'
     }
 ]
