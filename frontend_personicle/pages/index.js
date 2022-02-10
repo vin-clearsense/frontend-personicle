@@ -24,7 +24,7 @@ const handleRedirect =  async () => {
     // call the resource server to authenticate the accesstoken only if user is authenticated
     if(authState){
       const access_token = await oktaAuth.tokenManager.get('accessToken');
-      
+      console.log(access_token)
     fetch(config.resourceServer.endpoint, {
         headers: {
           Authorization: `Bearer ${access_token.accessToken}`,
