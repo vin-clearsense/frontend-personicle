@@ -1,9 +1,13 @@
 import { useSession } from "next-auth/client";
 import Link from "next/link";
+import AuthenticationContext from '../contexts/authentication';
 
+import React, {useContext} from "react";
 export default function DataConnectionsDiv(props){
-    const [session, status] = useSession();
-    if(!session){
+    // const [session, status] = useSession();
+    const[authState] = useContext(AuthenticationContext);
+    
+    if(!authState){
       return("User not logged in!")
     }
     let connections = props.sources;
@@ -11,7 +15,7 @@ export default function DataConnectionsDiv(props){
     for(let i=0; i<connections.length; i++){
         let connectionSource = connections[i]['source']
         let sourceIcon = connections[i]['icon']
-        let redirectLink = connections[i]['redirect']+"?user_id="+session.user.email
+        let redirectLink = connections[i]['redirect']
         let returnLink = connections[i]['return']
         // Use onclick request instead of link in the button
         // let row = [<td>{connections[i]['source']}</td>, <td><button ><Link href= {redirectLink+"?redirect_uri="+returnLink}>Connect</Link></button></td>];

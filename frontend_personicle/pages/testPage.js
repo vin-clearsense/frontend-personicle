@@ -3,12 +3,20 @@ import styles from '../styles/Home.module.css';
 import React from "react";
 import Link from "next/link";
 import { useSession } from 'next-auth/client';
-import DataConnectionsDiv from "../reactComponents/DataConnections"
+import DataConnectionsDiv from "../reactComponents/DataConnections";
 
-const ingestionServer = "https://20.121.8.101:8000"
-// const ingestionServer = "https://127.0.0.1:5000"
+// const ingestionServer = "https://20.121.8.101:8000"
+const ingestionServer = "https://127.0.0.1:5000"
+const ingestionServerOkta = "http://localhost:5000"
+
 
 const userConnections = [
+    {
+        'source': 'Okta test',
+        'icon': '',
+        'redirect': ingestionServerOkta + '/greet',
+        'return': 'http://localhost:3000/testPage'
+    },
     {
         'source': 'FitBit',
         'icon': '',
