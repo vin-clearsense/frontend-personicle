@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import React, {useContext} from "react";
 import AuthenticationContext from '../contexts/authentication';
+import Link from 'next/link';
 
 export default function Home() {
   const[oktaAuth,authState,name] = useContext(AuthenticationContext);
@@ -39,7 +40,9 @@ export default function Home() {
           Welcome to the super awesome personicle {name} <br /> 
           
           <button onClick={triggerSignOut}>Sign Out </button> 
-          
+          <button>
+            <Link href="/data-connections">To the connections</Link>
+          </button>
           {/* <button onClick={authenticateUser}>check user authentication </button>  */}
         
           </>
