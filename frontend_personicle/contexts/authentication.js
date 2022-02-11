@@ -8,7 +8,6 @@ export const AuthenticationProvider = ({children}) => {
    
     const[name,setName] = useState(null);
     const [authState, setAuthState] = useState(false);
-     
     const oktaAuth = new OktaAuth(config.oidc);
     
    useEffect(() => {
@@ -16,6 +15,7 @@ export const AuthenticationProvider = ({children}) => {
        oktaAuth.token.parseFromUrl()
        .then(function(res){
          var tokens = res.tokens;
+        //  console.log(tokens)
          oktaAuth.tokenManager.setTokens(tokens)
        }).then(oktaAuth.tokenManager.getTokens().then(({idToken}) => {
          if(idToken !== undefined){

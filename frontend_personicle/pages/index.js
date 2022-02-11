@@ -1,10 +1,8 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import React, {useContext, useEffect,useState} from "react";
-import {signin, signIn, signOut, useSession, providers} from "next-auth/client";
-import { AuthState,OktaAuth  } from '@okta/okta-auth-js';
-import config from './config';
+import React, {useContext} from "react";
 import AuthenticationContext from '../contexts/authentication';
+
 export default function Home() {
   const[oktaAuth,authState,name] = useContext(AuthenticationContext);
   
@@ -16,38 +14,10 @@ export default function Home() {
    oktaAuth.signInWithRedirect({ originalUri: '/' });
   }
 
-const handleRedirect =  async () => {
-    await oktaAuth.handleLoginRedirect({originalUri: 'http://localhost:3000/'});
-}
- 
-  async function authenticateUser(){
-    // call the resource server to authenticate the accesstoken only if user is authenticated
-    if(authState){
-      const access_token = await oktaAuth.tokenManager.get('accessToken');
-      console.log(access_token)
-    fetch(config.resourceServer.endpoint, {
-        headers: {
-          Authorization: `Bearer ${access_token.accessToken}`,
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
-        }
-      }).then((response) => {
-          if (!response.ok) {
-            return Promise.reject();
-          }
-          return response.json();  
-        }).then((data)=> {
-          const result = data.messages.map((message)=> {
-            console.log(message.text)
-            return {
-              test: message.text
-            }
-          })
-        }).catch((err) => {
-          console.error(err);
-        });
-    }
+  const handleRedirect =  async () => {
+      await oktaAuth.handleLoginRedirect({originalUri: 'http://localhost:3000/'});
   }
+ 
   return (
     <div className={styles.container}>
       <Head>
@@ -70,7 +40,7 @@ const handleRedirect =  async () => {
           
           <button onClick={triggerSignOut}>Sign Out </button> 
           
-          <button onClick={authenticateUser}>check user authentication </button> 
+          {/* <button onClick={authenticateUser}>check user authentication </button>  */}
         
           </>
         )}
