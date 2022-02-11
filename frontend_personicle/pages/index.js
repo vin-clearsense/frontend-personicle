@@ -43,7 +43,6 @@ export default function Home() {
           <button>
             <Link href="/data-connections">To the connections</Link>
           </button>
-          {/* <button onClick={authenticateUser}>check user authentication </button>  */}
         
           </>
         )}

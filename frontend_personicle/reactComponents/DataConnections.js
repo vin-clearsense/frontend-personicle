@@ -7,7 +7,7 @@ import React, {useContext, useEffect, useState} from "react";
 
 export default function DataConnectionsDiv(props){
     
-    const[oktaAuth,authState,] = useContext(AuthenticationContext);
+    const[oktaAuth,authState] = useContext(AuthenticationContext);
     const [authorized,setAuthorized] = useState(false)
     const[sub,setSub] = useState(null)
     useEffect(() => {
