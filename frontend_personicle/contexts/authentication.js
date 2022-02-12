@@ -9,7 +9,7 @@ export const AuthenticationProvider = ({children}) => {
     const[name,setName] = useState(null);
     const [authState, setAuthState] = useState(false);
     const oktaAuth = new OktaAuth(config.oidc);
-    const oktaAuthGoogle = new oktaAuth
+    
    useEffect(() => {
      if(oktaAuth.isLoginRedirect()){
        oktaAuth.token.parseFromUrl()
