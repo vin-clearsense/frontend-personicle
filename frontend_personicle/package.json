@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@okta/okta-auth-js": "^6.0.0",
+    "@okta/okta-signin-widget": "^6.0.1",
     "next": "11.1.2",
     "next-auth": "^3.29.0",
     "react": "17.0.2",
