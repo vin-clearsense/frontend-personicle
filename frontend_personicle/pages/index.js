@@ -4,28 +4,20 @@ import React, {useContext,useEffect,useState} from "react";
 import AuthenticationContext from '../contexts/authentication';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-
+import config from './config';
 import { useRouter } from 'next/router';
 
 
 export default function Home() {
-  const[oktaAuth,authState,name,googleWidget] = useContext(AuthenticationContext);
-  const [google, setGoogle] = useState(0);
-  const router = useRouter();
-    
+  const[oktaAuth,authState,name] = useContext(AuthenticationContext);
+
+  const googleAuthorizeRoute = "https://dev-01936861.okta.com/oauth2/v1/authorize?idp="+config.idps.googleId+'&client_id='+config.oidc.clientId+'&response_type=code%20token%20id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri='+config.idps.redirect_uri+'&state='+config.idps.state+'&nonce='+config.idps.nonce;
   const triggerSignOut = async () => {
    await  oktaAuth.signOut({  clearTokensBeforeRedirect :true ,postLogoutRedirectUri: 'http://localhost:3000/',});
   }
 
  const triggerLogin = async () => {
    oktaAuth.signInWithRedirect({ originalUri: '/' });
-  }
-  const triggerGoogleLogin = async () => {
-    oktaAuth.handleAuthentication().then(() => {
-      this.router.navigate(['/']); // to home page
-  }).catch(error => {
-      // handle error
-  });
   }
   
   const handleRedirect =  async () => {
@@ -45,11 +37,9 @@ export default function Home() {
           <>
           Not signed in <br /> 
           <button onClick={triggerLogin}>Sign In With Okta</button> 
-          {/* <button onClick={triggerGoogleLogin}>Sign In With Google</button>  */}
-         
-          <button >
-          <a href="https://dev-01936861.okta.com/oauth2/v1/authorize?idp=0oa3v658b8VCLoy3L5d7&client_id=0oa3sq0q2iDDS2IV25d7&response_type=code%20token%20id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&state=WMffre6D&nonce=YsGfre76jo">Sign in with Google</a>
-         </button>
+          <button>
+              <Link href={googleAuthorizeRoute}>Sign In With Google</Link>
+          </button>
           </>
         )}
       {authState && (
