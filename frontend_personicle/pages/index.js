@@ -1,32 +1,18 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import React, {useContext} from "react";
+import React, {useContext,useEffect,useState} from "react";
 import AuthenticationContext from '../contexts/authentication';
 import Link from 'next/link';
-// import {OktaSignIn} from '@okta/okta-signin-widget';
+import dynamic from 'next/dynamic';
+
+import { useRouter } from 'next/router';
+
+
 export default function Home() {
-  const[oktaAuth,authState,name] = useContext(AuthenticationContext);
-  // var oktaSignIn = new OktaSignIn({
-  //   baseUrl: orgUrl,
-  //   clientId: 'smBXcoabniBOUsja0A6b7', 
-  //   redirectUri: 'http://localhost:3000',
-  //   authParams: {
-  //     issuer: 'default', 
-  //     responseType: 'id_token',
-  //     scopes: ['openid', 'email','profile'],
-  //   },
-  //   idps:[
-  //     { type: 'google', id: '0oadrrh812O9sbabE0h7' },
-  //   ],
-  //   idpDisplay: "PRIMARY",
-  //   // i18n: {
-  //   //   en: {
-  //   //     'password.forgot.email.or.username.placeholder': 'Email',
-  //   //     'password.forgot.email.or.username.tooltip': 'Email',
-  //   //     'errors.E0000095': 'Unable to reset password.  Did you put in a valid email?'
-  //   //   }
-  //   // }
-  // });
+  const[oktaAuth,authState,name,googleWidget] = useContext(AuthenticationContext);
+  const [google, setGoogle] = useState(0);
+  const router = useRouter();
+    
   const triggerSignOut = async () => {
    await  oktaAuth.signOut({  clearTokensBeforeRedirect :true ,postLogoutRedirectUri: 'http://localhost:3000/',});
   }
@@ -34,9 +20,14 @@ export default function Home() {
  const triggerLogin = async () => {
    oktaAuth.signInWithRedirect({ originalUri: '/' });
   }
-  // const triggerGoogleLogin = async => {
-  //   oktaSignIn.signInWithRedirect({}  )
-  // }
+  const triggerGoogleLogin = async () => {
+    oktaAuth.handleAuthentication().then(() => {
+      this.router.navigate(['/']); // to home page
+  }).catch(error => {
+      // handle error
+  });
+  }
+  
   const handleRedirect =  async () => {
       await oktaAuth.handleLoginRedirect({originalUri: 'http://localhost:3000/'});
   }
@@ -54,8 +45,10 @@ export default function Home() {
           <>
           Not signed in <br /> 
           <button onClick={triggerLogin}>Sign In With Okta</button> 
-          <button>
-          <a href="https://dev-01936861.okta.com/oauth2/v1/authorize?idp=0oa3v658b8VCLoy3L5d7&client_id=0oa3sq0q2iDDS2IV25d7&response_type=id_token&response_mode=fragment&scope=openid%20email&redirect_uri=http%3A%2F%2Flocalhost%2F&state=WMffre6D&nonce=YsGfre76jo">Sign in with Google</a>
+          {/* <button onClick={triggerGoogleLogin}>Sign In With Google</button>  */}
+         
+          <button >
+          <a href="https://dev-01936861.okta.com/oauth2/v1/authorize?idp=0oa3v658b8VCLoy3L5d7&client_id=0oa3sq0q2iDDS2IV25d7&response_type=code%20token%20id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&state=WMffre6D&nonce=YsGfre76jo">Sign in with Google</a>
          </button>
           </>
         )}

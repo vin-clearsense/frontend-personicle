@@ -15,7 +15,7 @@ export default function DataConnectionsDiv(props){
         if(authState){
           const access_token = await oktaAuth.tokenManager.get('accessToken');
           const id_token = await oktaAuth.tokenManager.get('idToken');
-          
+          // console.log(id_token)
           setSub(id_token.claims.sub)
           await fetch(config.resourceServer.endpoint, {
               headers: {
@@ -58,6 +58,7 @@ export default function DataConnectionsDiv(props){
     
 async function authorizationWindow(e,redirectUrl){
       if(authorized){
+        console.log("Authorized")
         let new_window = window.open(redirectUrl);
         // new_window.close();
         // const res = new_window.redirect(redirectUrl);
