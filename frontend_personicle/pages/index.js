@@ -37,9 +37,12 @@ export default function Home() {
           <>
           Not signed in <br /> 
           <button onClick={triggerLogin}>Sign In With Okta</button> 
-          <button>
+          {/* <button>
               <Link href={googleAuthorizeRoute}>Sign In With Google</Link>
-          </button>
+          </button> */}
+           
+            <div ></div>
+      
           </>
         )}
       {authState && (
@@ -47,8 +50,9 @@ export default function Home() {
           Welcome to the super awesome personicle {name} <br /> 
           
           <button onClick={triggerSignOut}>Sign Out </button> 
+         
           <button>
-            <Link href="/data-connections">To the connections</Link>
+            <Link href="/testPage">To the connections</Link>
           </button>
         
           </>

@@ -8,8 +8,6 @@ import DataConnectionsDiv from "../reactComponents/DataConnections";
 // const ingestionServer = "https://20.121.8.101:8000"
 const ingestionServer = "https://127.0.0.1:5000"
 
-
-
 const userConnections = [
     {
         'source': 'FitBit',
@@ -33,7 +31,6 @@ const userConnections = [
 ]
 
 export default function TestPage(){
-    const [session, loading] = useSession();
 
     return(
         <div className={styles.container}>

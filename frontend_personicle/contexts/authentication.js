@@ -8,7 +8,6 @@ const AuthenticationContext = createContext(0)
 
 export const AuthenticationProvider = ({children}) => {
     
-
     const[name,setName] = useState(null);
     const [authState, setAuthState] = useState(false);
     const oktaAuth = new OktaAuth(config.oidc);
@@ -16,9 +15,9 @@ export const AuthenticationProvider = ({children}) => {
     const router = useRouter()
     useEffect(()=>{
       oktaAuth.session.exists().then((response) => {
+      
         if(response || oktaAuth.isLoginRedirect()){
           oktaAuth.token.getWithoutPrompt({scopes:['openid','email','profile']}).then((response)=>{
-            
             oktaAuth.tokenManager.setTokens(response.tokens);
             oktaAuth.tokenManager.getTokens()
               .then(({idToken }) => {
