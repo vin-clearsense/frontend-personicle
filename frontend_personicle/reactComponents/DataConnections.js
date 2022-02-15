@@ -12,38 +12,35 @@ export default function DataConnectionsDiv(props){
     const [authenticated,setAuthenticated] = useState(false)
 
     const[sub,setSub] = useState(null)
-    // useEffect(() => {
-    //   const checkAuthentication = async() => {
-    //     if(authState){
-    //       const access_token = await oktaAuth.tokenManager.get('accessToken');
-    //       const id_token = await oktaAuth.tokenManager.get('idToken');
-    //       var url = +config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
-    //       setSub(id_token.claims.sub)
-    //       await fetch(url, {
-    //           headers: {
-    //             Authorization: `Bearer ${access_token.accessToken}`,
-    //             auth: authenticated,
-    //             'Access-Control-Allow-Origin': '*',
-    //             'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
-    //           }
-    //         }).then((response) => {
-    //             if (!response.ok) {
-    //               return Promise.reject();
-    //             }
-    //             return response.json();  
-    //           }).then((data)=> { 
-    //             console.log(data)       
-    //               setAuthenticated(data.message)
-    //           }).catch((err) => {
-    //             console.error(err); 
-    //           });
-    //     }
-    
-       
-    //   }
+    useEffect(() => {
+      const checkAuthentication = async() => {
+        if(authState){
+          const access_token = await oktaAuth.tokenManager.get('accessToken');
+          const id_token = await oktaAuth.tokenManager.get('idToken');
+          var url = config.resourceServer.stagingAuthenticate
+          setSub(id_token.claims.sub)
+          await fetch(url, {
+              headers: {
+                Authorization: `Bearer ${access_token.accessToken}`,
+                auth: authenticated,
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
+              }
+            }).then((response) => {
+                if (!response.ok) {
+                  return Promise.reject();
+                }
+                return response.json();  
+              }).then((data)=> {    
+                  setAuthorized(data.message)
+              }).catch((err) => {
+                console.error(err); 
+              });
+        }
+      }
         
-    // checkAuthentication();
-    // })
+    checkAuthentication();
+    })
 
     if(!authState){
       return("User not logged in!")
@@ -65,67 +62,13 @@ export default function DataConnectionsDiv(props){
     
 async function authorizationWindow(e,redirectUrl){
 
-  const access_token = await oktaAuth.tokenManager.get('accessToken');
-  const id_token = await oktaAuth.tokenManager.get('idToken');
-
-  setSub(id_token.claims.sub)
-  var url = config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
-  // var url = config.resourceServer.endpoint+"/google-fit/connection?user_id="+id_token.claims.sub
-  await fetch(url, {
-    mode: 'cors',
-      headers: {
-        Authorization: `Bearer ${access_token.accessToken}`,
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': ['GET','POST','OPTIONS']
+      if(authorized){
+        console.log("Authorized")
+         window.open(redirectUrl,'_self');
+        window.onunload = function(){ console.log("hello"); alert("Bye now!");}
+      } else {
+        console.log("Unauthorized")
       }
-    }).then((response) => {
-    //   if (response.redirected) {
-        // window.location.href = response.url;
-    // }
-        if (!response.ok) {
-          return Promise.reject();
-        }
-        return response.json();  
-      }).then((data)=> {    
-       console.log(data)
-        
-        // window.location.href = data
-          // setAuthorized(data.message)
-        
-      }).catch((err) => {
-        console.error(err); 
-      });
-
-      // await fetch(url, {
-      //   headers: {
-      //     Authorization: `Bearer ${access_token.accessToken}`,
-      //     auth: authenticated,
-      //     'Access-Control-Allow-Origin': '*',
-      //     'Access-Control-Allow-Methods': ['GET','POST','OPTIONS']
-      //   }
-      // }).then((response) => {
-      //     if (!response.ok) {
-      //       return Promise.reject();
-      //     }
-      //     return response.json();  
-      //   }).then((data)=> {        
-      //       setAuthorized(data.message)
-      //       console.log(data)
-      //   }).catch((err) => {
-      //     console.error(err); 
-      //   })
-      // if(authorized){
-      //   console.log("Authorized")
-      //   let new_window = window.open(redirectUrl);
-      //   // new_window.close();
-      //   // const res = new_window.redirect(redirectUrl);
-      //   // console.log(res);
-      //   // if(res.data.success){
-      //   //   new_window.close()
-      //   // }
-      // } else {
-      //   console.log("Unauthorized")
-      // }
   
 }
 

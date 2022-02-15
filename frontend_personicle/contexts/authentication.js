@@ -11,8 +11,8 @@ export const AuthenticationProvider = ({children}) => {
     const[name,setName] = useState(null);
     const [authState, setAuthState] = useState(false);
     const oktaAuth = new OktaAuth(config.oidc);
-   
     const router = useRouter()
+    
     useEffect(()=>{
       oktaAuth.session.exists().then((response) => {
       
