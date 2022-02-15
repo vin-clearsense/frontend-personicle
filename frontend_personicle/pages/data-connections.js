@@ -1,28 +1,30 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/client";
-
+import AuthenticationContext from "../contexts/authentication";
+import  {useContext} from "react";
 export default function DataConnection(){
-    const[session, loading] = useSession();
+    const[oktaAuth,authState,name]= useContext(AuthenticationContext);
+    // const[session, loading] = useSession();
     const[content, setContent] = useState();
 
-    useEffect(() => {
-        const fetchData = async() => {
-            const res = await fetch("/api/data-connections");
-            // the api call returns the list of api connections and the active connections for a user
-            // for every connection there should be 2 buttons: connect, and disconnect
+    // useEffect(() => {
+    //     const fetchData = async() => {
+    //         const res = await fetch("/api/data-connections");
+    //         // the api call returns the list of api connections and the active connections for a user
+    //         // for every connection there should be 2 buttons: connect, and disconnect
             
-            const json = await res.json();
+    //         const json = await res.json();
 
-            if(json.content){
-                setContent(json.content)
-            }
-        }
-        fetchData();
-    }, [session]);
+    //         if(json.content){
+    //             setContent(json.content)
+    //         }
+    //     }
+    //     fetchData();
+    // });
 
-    if( typeof window !== "undefined" && loading) return null;
+    // if( typeof window !== "undefined" ) return null;
 
-    if (!session){
+    if (!authState){
         return (
             <main>
                 <div>
@@ -37,7 +39,7 @@ export default function DataConnection(){
             <div>
                 <h1>Protected Page</h1>
                 <p>
-                    {content}
+                    {"Welcome to Personicle, " + name}
                 </p>
             </div>
         </main>

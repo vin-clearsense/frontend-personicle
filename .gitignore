@@ -25,11 +25,12 @@
 /frontend_personicle/yarn-debug.log*
 /frontend_personicle/yarn-error.log*
 
-# local env files
+# local env,config files
 /frontend_personicle/.env.local
 /frontend_personicle/.env.development.local
 /frontend_personicle/.env.test.local
 /frontend_personicle/.env.production.local
 /frontend_personicle/.env
+/frontend_personicle/pages/config.js
 # vercel
 /frontend_personicle/.vercel
