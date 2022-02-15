@@ -14,42 +14,34 @@ export default function DataConnectionsDiv(props){
     const[sub,setSub] = useState(null)
     // useEffect(() => {
     //   const checkAuthentication = async() => {
-    //     const access_token = await oktaAuth.tokenManager.get('accessToken');
+    //     if(authState){
+    //       const access_token = await oktaAuth.tokenManager.get('accessToken');
     //       const id_token = await oktaAuth.tokenManager.get('idToken');
-    //       var url = config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
-    //     var x = new XMLHttpRequest();
-    //     x.open('GET',url)
-    //     x.setRequestHeader("Authorization", `Bearer ${access_token.accessToken}`);
-    //     x.setRequestHeader("auth", true);
-    //     x.setRequestHeader("Access-Control-Allow-Origin", '*');
-
-    //     x.send()
+    //       var url = +config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
+    //       setSub(id_token.claims.sub)
+    //       await fetch(url, {
+    //           headers: {
+    //             Authorization: `Bearer ${access_token.accessToken}`,
+    //             auth: authenticated,
+    //             'Access-Control-Allow-Origin': '*',
+    //             'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
+    //           }
+    //         }).then((response) => {
+    //             if (!response.ok) {
+    //               return Promise.reject();
+    //             }
+    //             return response.json();  
+    //           }).then((data)=> { 
+    //             console.log(data)       
+    //               setAuthenticated(data.message)
+    //           }).catch((err) => {
+    //             console.error(err); 
+    //           });
+    //     }
+    
+       
     //   }
-    // //     if(authState){
-    // //       const access_token = await oktaAuth.tokenManager.get('accessToken');
-    // //       const id_token = await oktaAuth.tokenManager.get('idToken');
-    // //       var url = "https://blooming-ridge-96436.herokuapp.com/"+config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
-    // //       setSub(id_token.claims.sub)
-    // //       await fetch(url, {
-    // //           headers: {
-    // //             Authorization: `Bearer ${access_token.accessToken}`,
-    // //             auth: authenticated,
-    // //             'Access-Control-Allow-Origin': '*',
-    // //             'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
-    // //           }
-    // //         }).then((response) => {
-    // //             if (!response.ok) {
-    // //               return Promise.reject();
-    // //             }
-    // //             return response.json();  
-    // //           }).then((data)=> { 
-    // //             console.log(data)       
-    // //               setAuthenticated(data.message)
-    // //           }).catch((err) => {
-    // //             console.error(err); 
-    // //           });
-    // //     }
-    // // }
+        
     // checkAuthentication();
     // })
 
@@ -77,9 +69,10 @@ async function authorizationWindow(e,redirectUrl){
   const id_token = await oktaAuth.tokenManager.get('idToken');
 
   setSub(id_token.claims.sub)
-  // var url = config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
-  var url = config.resourceServer.endpoint+"/fitbit/connection"+"?user_id="+id_token.claims.sub
+  var url = config.resourceServer.endpoint+"/fitbit/connection?user_id="+id_token.claims.sub
+  // var url = config.resourceServer.endpoint+"/google-fit/connection?user_id="+id_token.claims.sub
   await fetch(url, {
+    mode: 'cors',
       headers: {
         Authorization: `Bearer ${access_token.accessToken}`,
         'Access-Control-Allow-Origin': '*',
@@ -95,7 +88,8 @@ async function authorizationWindow(e,redirectUrl){
         return response.json();  
       }).then((data)=> {    
        console.log(data)
-        // window.location.href = data   
+        
+        // window.location.href = data
           // setAuthorized(data.message)
         
       }).catch((err) => {

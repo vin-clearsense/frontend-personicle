@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useSession } from 'next-auth/client';
 import DataConnectionsDiv from "../reactComponents/DataConnections";
 
-// const ingestionServer = "https://20.121.8.101:8000"
-const ingestionServer = "https://127.0.0.1:5000"
+const ingestionServer = "https://20.121.8.101:8000"
+// const ingestionServer = "https://127.0.0.1:5000"
 
 const userConnections = [
     {
