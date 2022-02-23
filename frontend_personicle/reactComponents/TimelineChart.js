@@ -93,7 +93,8 @@ function TimelineChart ({google}) {
   return (
     <>
     <div>
-      <h1>Event Timeline</h1>
+      <h1>Gantt Chart</h1>
+      <p> This is a simple Next.js page showing a Gantt Chart with activities imported from exercise.json in the PMData Set. Activities are on the y-axis, and dates with start and end time on the x-axis.  </p>
     </div>
       {!google && <Spinner />}
       <div id="dashboard_div">
@@ -106,4 +107,3 @@ function TimelineChart ({google}) {
 }
 
 export default TimelineChart;
-
