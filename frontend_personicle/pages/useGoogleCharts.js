@@ -15,7 +15,7 @@ function useGoogleCharts () {
         script.id = 'googleChartsScript';
         script.onload = () => {
           if (window.google && window.google.charts) {
-            window.google.charts.load('current', {'packages':['timeline']});
+            window.google.charts.load('current', {'packages':['timeline', 'controls']});
             
             window.google.charts.setOnLoadCallback(() => setGoogle(window.google))
           }
