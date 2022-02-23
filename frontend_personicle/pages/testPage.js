@@ -4,8 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { useSession } from 'next-auth/client';
 import DataConnectionsDiv from "../reactComponents/DataConnections"
-import TimelineChart from "./TimelineChart"
-import useGoogleCharts from './useGoogleCharts'
+import TimelineChart from "../reactComponents/TimelineChart"
+import useGoogleCharts from '../reactComponents/useGoogleCharts'
 
 const ingestionServer = "https://20.121.8.101:8000"
 // const ingestionServer = "https://127.0.0.1:5000"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import sample_events from "./sample_events"
+import sample_events from "../sample_data/sample_events"
 
 function TimelineChart ({google}) {
   const [chart, setChart] = useState(null);
@@ -93,8 +93,7 @@ function TimelineChart ({google}) {
   return (
     <>
     <div>
-      <h1>Gantt Chart</h1>
-      <p> This is a simple Next.js page showing a Gantt Chart with activities imported from exercise.json in the PMData Set. Activities are on the y-axis, and dates with start and end time on the x-axis.  </p>
+      <h1>Event Timeline</h1>
     </div>
       {!google && <Spinner />}
       <div id="dashboard_div">
