@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import sample_events from "../sample_data/sample_events"
-import MyComponent from '../reactComponents/MyComponent'
 
 function TimelineChart ({google}) {
   console.log("Create TimelineChart");
@@ -13,15 +12,6 @@ function TimelineChart ({google}) {
   })
 
   useEffect(() => {
-    // function handleResize() {
-    //   console.log(window.innerWidth);
-    //   setChart({
-    //     height: window.innerHeight,
-    //     width: window.innerWidth
-    //   })
-    // }
-
-    //window.addEventListener('resize', handleResize)
 
     if (google && !chart) {
 
@@ -83,11 +73,8 @@ function TimelineChart ({google}) {
 
       // Create a timeline chart, passing some options
       var timelineOptions = {
-        title: 'DAILY GRAPH',
         width: window.innerWidth,
-        height: 500,
-        hAxis: { title: 'NOVEMBER', titleTextStyle: { color: '#333' } },
-        vAxis: { minValue: 0 }
+        height: 500, //window.innerHeight,        
     };
 ;
       var timelineChart = new google.visualization.ChartWrapper({
@@ -109,9 +96,8 @@ function TimelineChart ({google}) {
         const chart = new google.visualization.Timeline(document.getElementById('timeline'));
 
         timelineOptions.width = .4 * window.innerWidth;
-        //timelineOptions.height = .4 * window.innerHeight;
+        timelineOptions.height = .4 * window.innerHeight;
   
-        //chart.draw(data, timelineOptions);
         dashboard.draw(data, options);
       }
 
@@ -129,21 +115,6 @@ function TimelineChart ({google}) {
 
   return (
     <>
-    {/* <style>
-    #dashboard_div{
-      position: relative;
-      padding-bottom: 100%;
-      height: 0;
-      overflow: hidden;
-    }
-    #timeline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 500px;
-    }
-  </style> */}
     <div>
       <h1>Gantt Chart</h1>
       <p> This is a simple Next.js page showing a Gantt Chart with activities imported from exercise.json in the PMData Set. Activities are on the y-axis, and dates with start and end time on the x-axis.  </p>
