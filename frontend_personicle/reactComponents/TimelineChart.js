@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import sample_events from "../sample_data/sample_events"
 
 function TimelineChart ({google}) {
+  console.log("Create TimelineChart");
+
   const [chart, setChart] = useState(null);
+  const [dimensions, setDimensions] = useState({ 
+    height: 0,
+    width: 0
+  })
 
   useEffect(() => {
+
     if (google && !chart) {
 
       // Create functions 
@@ -34,6 +41,7 @@ function TimelineChart ({google}) {
       // Create the data table.
       
       const data = new google.visualization.DataTable();
+  
       data.addColumn({ type: 'string', id: 'Events' });
       data.addColumn({ type: 'string', id: 'Task ID' });
       data.addColumn({ type: 'date', id: 'Start Date' });
@@ -45,8 +53,8 @@ function TimelineChart ({google}) {
   
       // Set chart options
       var options = {'title':'Gantt Chart Timeline Visualization',
-                    'width':500,
-                    'height':300,
+                    'width':' 100%',
+                    'height': '100%',
                     timeline: { groupByRowLabel: true}, 
                     displayAnnotations: true};
 
@@ -64,31 +72,46 @@ function TimelineChart ({google}) {
       });
 
       // Create a timeline chart, passing some options
+      var timelineOptions = {
+        width: window.innerWidth,
+        height: 500, //window.innerHeight,        
+    };
+;
       var timelineChart = new google.visualization.ChartWrapper({
         'chartType': 'Timeline',
         'containerId': 'timeline',
-        'options': {
-          'width': 1000,
-          'height': 500,
-          'pieSliceText': 'value',
-          'legend': 'right'
-        }
+        'options': timelineOptions
       });
 
-      // Instantiate and draw our chart, passing in some options.
-      //var container = document.getElementById('timeline');
-      //var chart = new google.visualization.Timeline(container);
-
+      // Instantiate and draw our dashboard and chart, passing in some options.
       var dashboard = new google.visualization.Dashboard(
         document.getElementById('dashboard_div'));
      
-      const chart = new google.visualization.Timeline(document.getElementById('timeline'));
-      dashboard.bind(dateRangeSlider, timelineChart);
-      dashboard.draw(data, options);
-      setChart(timeline);
-      
+        dashboard.bind(dateRangeSlider, timelineChart);
+        dashboard.draw(data, options);
+        
+      function resize () {
+        console.log("called resize");
+
+        const chart = new google.visualization.Timeline(document.getElementById('timeline'));
+
+        timelineOptions.width = .4 * window.innerWidth;
+        timelineOptions.height = .4 * window.innerHeight;
+  
+        dashboard.draw(data, options);
+      }
+
+      window.onload = resize;
+      window.onresize = resize;
     }
+    
+    //Re-Render Chart on Window Resize
+    // return _ => {
+    //   window.removeEventListener('resize', handleResize)}  
+
   }, [google, chart]);
+
+
 
   return (
     <>
@@ -99,7 +122,7 @@ function TimelineChart ({google}) {
       {!google && <Spinner />}
       <div id="dashboard_div">
         <div id="filter_div"></div>
-        <div id="timeline" className={!google ? 'd-none' : ''} />
+        <div id="timeline" className={!google ? 'd-none' : ''}/>
       </div>
       
     </>
