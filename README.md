@@ -42,7 +42,8 @@ npm install next react react-dom
 ```cd frontend-personicle```
 
 7. Open respository in VisualStudio
-Note: Steps for VisualStudio are optional. You may use other IDEs. 
+Note: Steps for VisualStudio are optional. You may use other IDEs.
+
 ```code .```
 
 8. Run local host in browser
