@@ -25,7 +25,7 @@ curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt-get install -y nodejs
 ```
 
-4. Install JavsScript libraries (Next.js, React.js, and React-dom.js). Ensure these are installed before running the application. 
+4. Install JavaScript libraries (Next.js, React.js, and React-dom.js). Ensure these are installed before running the application. 
 
 ```
 npm install
