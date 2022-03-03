@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from 'next-auth/client';
 import DataConnectionsDiv from "../reactComponents/DataConnections"
 import TimelineChart from "../reactComponents/TimelineChart"
+import BarChart from "../reactComponents/BarChart"
 import useGoogleCharts from '../reactComponents/useGoogleCharts'
 
 const ingestionServer = "https://20.121.8.101:8000"
@@ -47,7 +48,9 @@ export default function TestPage(){
                 <div className={styles.Row}>
                     <div className={styles.Column}><DataConnectionsDiv sources={userConnections}/></div>
                     <div className={styles.Column}><TimelineChart google={google}/></div>
-                    <div className={styles.Column}>Summary View Tab</div>
+                    <div className={styles.Column}><BarChart google={google}/></div>
+                    {/* <div className={styles.Column}><MyComponent google={google}/></div> */}
+                    {/* <div className={styles.Column}>Summary View Tab</div> */}
                 </div>
             </main>
 
