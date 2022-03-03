@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import sample_events from "../sample_data/sample_events"
-import MyComponent from '../reactComponents/MyComponent'
+
 
 function TimelineChart ({google}) {
   console.log("Create TimelineChart");
@@ -49,9 +49,7 @@ function TimelineChart ({google}) {
     GFG_Fun(endDate);
 
       // Create the data table.
-      
       const data = new google.visualization.DataTable();
-  
       data.addColumn({ type: 'string', id: 'Events' });
       data.addColumn({ type: 'string', id: 'Task ID' });
       data.addColumn({ type: 'date', id: 'Start Date' });
@@ -83,11 +81,8 @@ function TimelineChart ({google}) {
 
       // Create a timeline chart, passing some options
       var timelineOptions = {
-        title: 'DAILY GRAPH',
         width: window.innerWidth,
-        height: 500,
-        hAxis: { title: 'NOVEMBER', titleTextStyle: { color: '#333' } },
-        vAxis: { minValue: 0 }
+        height: 500
     };
 ;
       var timelineChart = new google.visualization.ChartWrapper({
@@ -97,15 +92,12 @@ function TimelineChart ({google}) {
       });
 
       // Instantiate and draw our dashboard and chart, passing in some options.
-      var dashboard = new google.visualization.Dashboard(
-        document.getElementById('dashboard_div'));
-     
-        dashboard.bind(dateRangeSlider, timelineChart);
-        dashboard.draw(data, options);
+      var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+      dashboard.bind(dateRangeSlider, timelineChart);
+      dashboard.draw(data, options);
         
       function resize () {
         console.log("called resize");
-
         const chart = new google.visualization.Timeline(document.getElementById('timeline'));
 
         timelineOptions.width = .4 * window.innerWidth;
@@ -129,21 +121,7 @@ function TimelineChart ({google}) {
 
   return (
     <>
-    {/* <style>
-    #dashboard_div{
-      position: relative;
-      padding-bottom: 100%;
-      height: 0;
-      overflow: hidden;
-    }
-    #timeline {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 500px;
-    }
-  </style> */}
+
     <div>
       <h1>Gantt Chart</h1>
       <p> This is a simple Next.js page showing a Gantt Chart with activities imported from exercise.json in the PMData Set. Activities are on the y-axis, and dates with start and end time on the x-axis.  </p>
