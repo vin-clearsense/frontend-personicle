@@ -8,8 +8,8 @@ import TimelineChart from "../reactComponents/TimelineChart"
 import BarChart from "../reactComponents/BarChart"
 import useGoogleCharts from '../reactComponents/useGoogleCharts'
 
-const ingestionServer = "https://20.121.8.101:8000"
-// const ingestionServer = "https://127.0.0.1:5000"
+// const ingestionServer = "https://20.121.8.101:8000"
+const ingestionServer = "https://127.0.0.1:5000"
 
 const userConnections = [
     {

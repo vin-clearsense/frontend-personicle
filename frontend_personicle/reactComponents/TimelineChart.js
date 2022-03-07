@@ -91,7 +91,7 @@ function TimelineChart ({google}) {
         dashboard.draw(data, options);
         
       function resize () {
-        console.log("called resize");
+        console.log("called timeline resize");
 
         const chart = new google.visualization.Timeline(document.getElementById('timeline'));
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import sample_events from "../sample_data/sample_events"
-import Multiselect from 'multiselect-react-dropdown';
 
 function BarChart ({google}) {
     const [chart, setChart] = useState(null);
@@ -58,7 +57,7 @@ function BarChart ({google}) {
         // Create a range slider, passing some options
         var categoryFilter = new google.visualization.ControlWrapper({
           'controlType': 'CategoryFilter',
-          'containerId': 'filter_div',
+          'containerId': 'dropdown_div',
           'options': {
             'filterColumnIndex': 0
           }
@@ -79,12 +78,12 @@ function BarChart ({google}) {
       });
 
     // Instantiate and draw our dashboard and chart, passing in some options.
-    var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+    var dashboard = new google.visualization.Dashboard(document.getElementById('barchart_div'));
     dashboard.bind(categoryFilter, barChart);
     dashboard.draw(data,options);
 
     function resize () {
-      console.log("called resize");
+      console.log("called barchart resize");
       const chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
       barChartOptions.width = .4 * window.innerWidth;
@@ -117,8 +116,8 @@ function BarChart ({google}) {
       <p> This is a simple Next.js page showing an interavtive and responsive Bar Chart. It shows the number of minutes the user spent doing various activities.</p>
     </div>
       {!google && <Spinner />}
-      <div id="dashboard_div">
-        <div id="filter_div"></div>
+      <div id="barchart_div">
+        <div id="dropdown_div"></div>
         <div id="chart_div" className={!google ? 'd-none' : ''}/>
       </div>
     </>
