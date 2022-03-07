@@ -25,7 +25,7 @@ curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
 sudo apt-get install -y nodejs
 ```
 
-4. Install JavsScript libraries (Next.js, React.js, and React-dom.js). Ensure these are installed before running the application. 
+4. Install JavaScript libraries (Next.js, React.js, and React-dom.js). Ensure these are installed before running the application. 
 
 ```
 npm install
@@ -42,7 +42,8 @@ npm install next react react-dom
 ```cd frontend-personicle```
 
 7. Open respository in VisualStudio
-Note: Steps for VisualStudio are optional. You may use other IDEs. 
+Note: Steps for VisualStudio are optional. You may use other IDEs.
+
 ```code .```
 
 8. Run local host in browser
