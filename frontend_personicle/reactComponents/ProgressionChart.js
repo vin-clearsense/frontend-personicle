@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import sample_events from "../sample_data/sample_events"
-import sleep_events from "../sample_data/sleep_events"
+// import sleep_events from "../sample_data/sleep_events"
 
 function ProgressionChart ({google}) {
     const [chart, setChart] = useState(null);
@@ -23,12 +23,12 @@ function ProgressionChart ({google}) {
             var oneJan = new Date(currentdate.getFullYear(),0,1);
             var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
             var result = Math.ceil(( currentdate.getDay() + 1 + numberOfDays) / 7);
-            console.log(`The week number of the current date (${currentdate}) is ${result}.`);
+            // console.log(`The week number of the current date (${currentdate}) is ${result}.`);
             return result;
         }
 
         let events = sample_events["sample_events"];
-        console.log(events);
+        // console.log(events);
         // Create the data table.
         var totalDuration = {}; // shows total duration for separate events over
         var weeklyDurations = {};
@@ -38,7 +38,7 @@ function ProgressionChart ({google}) {
                 var weekNum = findWeekNum(event.startTime);
                 var yearNum = (new Date(event.startTime)).getFullYear();
                 var year_week = yearNum.toString() + "_" + weekNum.toString();
-                console.log(year_week);
+                // console.log(year_week);
                 uniqueActivities = uniqueActivities.add(event.activityName);
                 
                 if (year_week in weeklyDurations)
@@ -91,7 +91,7 @@ function ProgressionChart ({google}) {
                 var dataRow = [];
                 dataRow.push(year_week);
                 for (const activity of uniqueActivities) {
-                    console.log(year_week, activity);
+                    // console.log(year_week, activity);
                     if (activity in weeklyDurations[year_week]) {
                         dataRow.push(weeklyDurations[year_week][activity]);
                     }
@@ -108,7 +108,7 @@ function ProgressionChart ({google}) {
         // Set chart options
         var options = {
             title: 'Total Time Spent Doing Various Activities Per Week',
-            width: 500000,
+            width: 5000,
             height: 1000,
             vAxis: {title: 'Total Duration'},
             hAxis: 
@@ -123,6 +123,7 @@ function ProgressionChart ({google}) {
         var columnFilter = new google.visualization.ControlWrapper({
           'controlType': 'CategoryFilter',
           'containerId': 'combo_filter_div',
+          'dataTable': columnsTable,
           options: {
             filterColumnLabel: 'colLabel',
             ui: {
@@ -139,8 +140,8 @@ function ProgressionChart ({google}) {
       // Create a Bar chart, passing some options
       var comboChartOptions = {
         title: 'Total Time Spent Doing Various Activities Per Week',
-        width: 500000,
-        height: 1000,
+        width: 2000,
+        height: 500,
         vAxis: {title: 'Total Duration'},
         hAxis: 
             {title: 'Event',
@@ -150,7 +151,7 @@ function ProgressionChart ({google}) {
      
     };
 
-      var chart = new google.visualization.ChartWrapper({
+      var combo_chart = new google.visualization.ChartWrapper({
         'chartType': 'ComboChart',
         'containerId': 'combo_chart_div',
         'dataTable': data,
@@ -158,7 +159,7 @@ function ProgressionChart ({google}) {
        
       });
 
-        function setChartView () {
+    function setChartView () {
         var state = columnFilter.getState();
         var row;
         var view = {
@@ -175,13 +176,14 @@ function ProgressionChart ({google}) {
         view.columns.sort(function (a, b) {
             return (a - b);
         });
-        chart.setView(view);
-        chart.draw();
+        combo_chart.setView(view);
+        combo_chart.draw();
     }
     google.visualization.events.addListener(columnFilter, 'statechange', setChartView);
-    
     setChartView();
     columnFilter.draw();
+    
+    
 }
 
 
@@ -190,17 +192,17 @@ function ProgressionChart ({google}) {
 //     dashboard.bind(categoryFilter, comboChart);
 //     dashboard.draw(data,options);
 
-//     function resize () {
-//       console.log("called resize");
-//       const chart = new google.visualization.ComboChart(document.getElementById('combo_chart_div'));
+    // function resize () {
+    //   console.log("called resize");
+    //   const chart = new google.visualization.ComboChart(document.getElementById('combo_chart_div'));
 
-//       comboChartOptions.width = 0.98 * window.innerWidth;
-//       comboChartOptions.height = .4 * window.innerHeight;
-//       dashboard.draw(data, options);
-//     }
+    //   comboChartOptions.width = 0.98 * window.innerWidth;
+    //   comboChartOptions.height = .4 * window.innerHeight;
+    //   dashboard.draw(data, options);
+    // }
 
-//     window.onload = resize;
-//     window.onresize = resize;
+    // window.onload = resize;
+    // window.onresize = resize;
 //   }
 
     // // The select handler. Call the chart's getSelection() method
